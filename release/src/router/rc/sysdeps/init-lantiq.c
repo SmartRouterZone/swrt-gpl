@@ -119,7 +119,7 @@ void init_devs(void)
 {
 	int status;
 	MKNOD("/dev/nvram", S_IFCHR | 0666, makedev(228, 0));
-
+	check_ubi_partition();
 	if((status = WEXITSTATUS(modprobe("nvram_linux"))))
 		printf("## modprobe(nvram_linux) fail status(%d)\n", status);
 	if(patch_Factory)
@@ -195,7 +195,6 @@ int init_devs_defer(void)
 		f_write_string("/sys/class/leds/lan4/trigger", "none", 0, 0);
 	}
 #endif
-	check_ubi_partition();
 	_dprintf("start_jffs2() start\n");
 	start_ubifs();
 	_dprintf("start_jffs2() end\n");

@@ -1660,8 +1660,12 @@ void start_lan(void)
 	if(nvram_match("lan_proto", "static"))
 #endif
 		ifconfig(lan_ifname, IFUP | IFF_ALLMULTI, nvram_safe_get("lan_ipaddr"), nvram_safe_get("lan_netmask"));
+//When stax is bridged to br0, duplicate IP addresses are not permitted within the LAN(lan_ipaddr=192.168.50.1).
 #if defined(RTCONFIG_SWRT) && defined(RTCONFIG_AMAS)
 	else if(aimesh_re_node())
+		ifconfig(lan_ifname, IFUP | IFF_ALLMULTI, "192.168.111.111", nvram_default_get("lan_netmask"));
+#elif defined(RTCONFIG_WIRELESSREPEATER)
+	else if(sw_mode() == SW_MODE_REPEATER)
 		ifconfig(lan_ifname, IFUP | IFF_ALLMULTI, "192.168.111.111", nvram_default_get("lan_netmask"));
 #endif
 	else
