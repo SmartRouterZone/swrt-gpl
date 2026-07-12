@@ -7,6 +7,7 @@
 |:--:|:-:|
 |rt-ac85p|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
 |r6800|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
+|mi-ac2100|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
 |rm-ac2100|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
 |jcg-q10pro|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
 |jcg-q20|[![Build testing](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml/badge.svg)](https://github.com/SWRT-dev/swrt-gpl/actions/workflows/github-actions.yml)|
@@ -56,6 +57,8 @@
    
    r6800 : `make swrt-r6800`
    
+   mi-ac2100 : `make swrt-mi-ac2100`
+
    rm-ac2100 : `make swrt-rm-ac2100`
    
    jcg-q10pro : `make swrt-jcg-q10pro`

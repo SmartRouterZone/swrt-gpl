@@ -2624,7 +2624,7 @@ int gen_ralink_config(int band, int is_iNIC)
 //		fprintf(fp, "BFBACKOFFenable=%d\n", 1);
 //	else
 		fprintf(fp, "BFBACKOFFenable=%d\n", 0);
-#if defined(RMAC2100)
+#if defined(RMAC2100) || defined(MIAC2100)
 	// TxBF
 	if (band)
 #endif

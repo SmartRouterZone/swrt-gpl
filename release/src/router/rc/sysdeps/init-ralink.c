@@ -96,7 +96,7 @@ void init_others(void)
 	eval("mii_mgr", "-s", "-p", "0", "-r", "13", "-v", "0x401f");
 	//mii_mgr -s -p 0 -r 14 -v 0xc007
 	eval("mii_mgr", "-s", "-p", "0", "-r", "14", "-v", "0x3f");
-#elif defined(RTAC85U) || defined(RTAC85P) || defined(R6800) || defined(RMAC2100)
+#elif defined(RTAC85U) || defined(RTAC85P) || defined(R6800) || defined(RMAC2100) || defined(MIAC2100)
 //fix me
 #endif
 #if defined(TUFAX4200)
@@ -192,6 +192,7 @@ void generate_switch_para(void)
 		case MODEL_RTAC85U:
 		case MODEL_RTAC85P:
 		case MODEL_RMAC2100:
+		case MODEL_MIAC2100:
 		case MODEL_R6800:
 		case MODEL_TUFAC1750:
 		case MODEL_RTAX53U:
@@ -498,6 +499,7 @@ void config_switch()
 	case MODEL_RTAC85U:
 	case MODEL_RTAC85P:
 	case MODEL_RMAC2100:
+	case MODEL_MIAC2100:
 	case MODEL_R6800:
 	case MODEL_TUFAC1750:
 	case MODEL_RTAX53U:
@@ -2328,7 +2330,7 @@ void generate_wl_para(int unit, int subunit)
 {
 }
 
-//#if defined(RTAC85U) || defined(RTAC85P) || defined(RTACRH26) || defined(RMAC2100) || defined(R6800)
+//#if defined(RTAC85U) || defined(RTAC85P) || defined(RTACRH26) || defined(RMAC2100) || defined(MIAC2100) || defined(R6800)
 #if 0
 #define HW_NAT_WIFI_OFFLOADING		(0xFF00)
 #define HW_NAT_DEVNAME			"hwnat0"
@@ -2713,6 +2715,7 @@ void set_wan_tag(char *interface) {
 	case MODEL_RTAC85U:
 	case MODEL_RTAC85P:
 	case MODEL_RMAC2100:
+	case MODEL_MIAC2100:
 	case MODEL_R6800:
 	case MODEL_TUFAC1750:
 	case MODEL_RTAX53U:

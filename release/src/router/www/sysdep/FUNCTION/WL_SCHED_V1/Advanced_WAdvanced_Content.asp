@@ -667,7 +667,7 @@ function initial(){
 			document.getElementById("wl_MU_MIMO_field").style.display = "none";
 			document.form.wl_mumimo.disabled = true;
 		}
-		else if((based_modelid == "RT-AC85U" || based_modelid == "RT-AC85P" || based_modelid == "RT-ACRH26" || based_modelid == "RT-AC65U" || based_modelid == "RT-ACRH18" || based_modelid == "4G-AC86U" || based_modelid == "4G-AX56" || based_modelid == "RM-AC2100" || based_modelid == "R6800") && is_unit_24g(wl_unit_value)){
+		else if((based_modelid == "RT-AC85U" || based_modelid == "RT-AC85P" || based_modelid == "RT-ACRH26" || based_modelid == "RT-AC65U" || based_modelid == "RT-ACRH18" || based_modelid == "4G-AC86U" || based_modelid == "4G-AX56" || based_modelid == "RM-AC2100" || based_modelid == "MI-AC2100" || based_modelid == "R6800") && is_unit_24g(wl_unit_value)){
 			document.getElementById("wl_MU_MIMO_field").style.display = "none";
 		}
 		else if(based_modelid == "RT-AX92U" && (is_unit_24g(wl_unit_value) || is_unit_5g(wl_unit_value))){
