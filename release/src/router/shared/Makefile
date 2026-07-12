@@ -421,7 +421,7 @@ ifeq ($(RTCONFIG_RALINK),y)
 ifneq ($(RTCONFIG_DSL_REMOTE),y)
 CFLAGS += $(if $(MT798X)$(MT799X),,-DTRX_NEW)
 endif
-ifeq ($(or $(RMAX6000),$(SWRT360T7)),y)
+ifeq ($(or $(RMAX6000),$(SWRT360T7),$(S20PAX6000)),y)
 CFLAGS += -DTRX_NEW
 endif
 OBJS	+= $(if $(wildcard sysdeps/ralink/private.c),private.o,prebuild/private.o)

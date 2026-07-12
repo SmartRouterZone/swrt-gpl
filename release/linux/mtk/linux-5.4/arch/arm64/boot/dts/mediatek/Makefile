@@ -13,6 +13,8 @@ else ifeq ($(CONFIG_MODEL_RTAX59U),y)
 dtb-y += mt7986a-RT-AX59U.dtb
 else ifeq ($(CONFIG_MODEL_RMAX6000),y)
 dtb-y += mt7986a-RM-AX6000.dtb
+else ifeq ($(CONFIG_MODEL_S20PAX6000),y)
+dtb-y += mt7986a-S20P-AX6000.dtb
 else ifeq ($(CONFIG_MODEL_SWRT360T7),y)
 dtb-y += mt7981-SWRT360T7.dtb
 else ifeq ($(CONFIG_MODEL_PRTAX57_GO),y)

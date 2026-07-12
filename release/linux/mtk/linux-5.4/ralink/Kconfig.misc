@@ -60,6 +60,10 @@ config  MODEL_RMAX6000
 	bool "Redmi AX6000"
 	default n
 
+config  MODEL_S20PAX6000
+	bool "S20P AX6000"
+	default n
+
 config  MODEL_SWRT360T7
 	bool "360T7"
 	default n

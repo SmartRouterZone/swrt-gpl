@@ -356,6 +356,18 @@ define platformKernelConfig
 		sed -i "/CONFIG_WIFI_ADIE_TYPE=/d" $(1); \
 		echo "CONFIG_WIFI_ADIE_TYPE=\"mt7975\"" >> $(1); \
 	fi; \
+	if [ "$(BUILD_NAME)" = "S20P-AX6000" ]; then \
+		sed -i "/CONFIG_MODEL_S20PAX6000/d" $(1); \
+		echo "CONFIG_MODEL_S20PAX6000=y" >>$(1); \
+		sed -i "/CONFIG_CMDLINE_OVERRIDE/d" $(1); \
+		echo "CONFIG_CMDLINE_OVERRIDE=y" >>$(1); \
+		sed -i "/CONFIG_MMC/d" $(1); \
+		echo "CONFIG_MMC=y" >>$(1); \
+		sed -i "/CONFIG_MMC_MTK/d" $(1); \
+		echo "CONFIG_MMC_MTK=y" >>$(1); \
+		sed -i "/CONFIG_REALTEK_PHY/d" $(1); \
+		echo "CONFIG_REALTEK_PHY=y" >>$(1); \
+	fi; \
 	if [ "$(BUILD_NAME)" = "RM-AX6000" ]; then \
 		sed -i "/CONFIG_MODEL_RMAX6000/d" $(1); \
 		echo "CONFIG_MODEL_RMAX6000=y" >>$(1); \

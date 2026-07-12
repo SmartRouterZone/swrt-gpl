@@ -279,7 +279,7 @@ extern int PS_pclose(FILE *);
 #if defined(RTCONFIG_RALINK_MT7621) 
 #define LINUX_MTD_NAME      "Kernel"
 #define LINUX2_MTD_NAME     "Kernel2"
-#elif defined(RMAX6000) || defined(SWRT360T7)
+#elif defined(RMAX6000) || defined(SWRT360T7) || defined(S20PAX6000)
 #define LINUX_MTD_NAME      "kernel"
 #define LINUX2_MTD_NAME     "kernel2"
 #else

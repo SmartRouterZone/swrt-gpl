@@ -9,7 +9,7 @@ install:
 	install -d $(INSTALLDIR)/rom/firmware/
 ifneq ($(wildcard $(LINUXDIR)/drivers/net/wireless/mediatek/mt798x/7.6.7.0/bin/mt7986/rebb/MT7986_iPAiLNA_EEPROM_AX6000.bin),)
 ifeq ($(or $(RTCONFIG_SOC_MT7986A),$(RTCONFIG_SOC_MT7986B),$(RTCONFIG_SOC_MT7986C)),y)
-ifeq ($(BUILD_NAME), $(filter $(BUILD_NAME), TUF-AX6000 RM-AX6000 TX-AX6000))
+ifeq ($(BUILD_NAME), $(filter $(BUILD_NAME), TUF-AX6000 RM-AX6000 S20P-AX6000 TX-AX6000))
 #ax6000 ax8400
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt798x/7.6.7.0/bin/mt7986/rebb/MT7986_iPAiLNA_EEPROM_AX6000.bin $(INSTALLDIR)/rom/firmware/
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt798x/7.6.7.0/bin/mt7986/rebb/MT7986_ePAeLNA_EEPROM_AX6000.bin $(INSTALLDIR)/rom/firmware/
@@ -49,7 +49,7 @@ ifeq ($(or $(RTCONFIG_SOC_MT7986A),$(RTCONFIG_SOC_MT7986B),$(RTCONFIG_SOC_MT7986
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt7986/bin/mt7986/rebb/mt7986_patch_e1_hdr.bin $(INSTALLDIR)/rom/firmware/
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt7986/bin/mt7986/rebb/mt7986_patch_e1_hdr_mt7975.bin $(INSTALLDIR)/rom/firmware/
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt7986/bin/mt7986/rebb/7986_WACPU_RAM_CODE_release.bin $(INSTALLDIR)/rom/firmware/
-ifeq ($(BUILD_NAME), $(filter $(BUILD_NAME), TUF-AX6000 RM-AX6000 TX-AX6000))
+ifeq ($(BUILD_NAME), $(filter $(BUILD_NAME), TUF-AX6000 RM-AX6000 S20P-AX6000 TX-AX6000))
 #ax6000 ax8400
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt7986/bin/mt7986/rebb/MT7986_iPAiLNA_EEPROM_AX6000.bin $(INSTALLDIR)/rom/firmware/
 	install -D $(LINUXDIR)/drivers/net/wireless/mediatek/mt7986/bin/mt7986/rebb/MT7986_ePAeLNA_EEPROM_AX6000.bin $(INSTALLDIR)/rom/firmware/

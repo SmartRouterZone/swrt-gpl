@@ -1084,6 +1084,8 @@ void wan_force_link_sp(int unit)
 	port = 0;
 #elif defined(RMAX6000) || defined(SWRT360T7)
 	port = 0;//just fix compilation failure
+#elif defined(S20PAX6000)
+	port = 7;
 #else
 #error port need to be defined
 #endif
@@ -1382,6 +1384,13 @@ void init_wl(void)
 #if defined(RTCONFIG_WLMODULE_MT7603E_AP) || defined(RTCONFIG_WLMODULE_MT7615E_AP) \
 	|| defined(RTCONFIG_WLMODULE_MT7915D_AP) || defined(RTCONFIG_MT798X) || defined(RTCONFIG_MT799X)
 	int mtd_part = 0, mtd_size = 0;
+#if defined(S20PAX6000)
+	snprintf(cmd, sizeof(cmd),
+		 "for p in /dev/disk/by-partlabel/factory /dev/disk/by-partlabel/Factory; do [ -e $p ] && dd if=$p of=/lib/firmware/e2p bs=%d skip=0 count=1 && exit 0; done; exit 1",
+		 720896);
+	if (system(cmd) != 0)
+		printf("init_devs: can't find S20P eMMC factory partition\n");
+#else
 	if (mtd_getinfo("Factory", &mtd_part, &mtd_size)){
 #if defined(RTCONFIG_MT798X)
 #if defined(RMAX6000) || defined(SWRT360T7)
@@ -1399,9 +1408,10 @@ void init_wl(void)
 		snprintf(cmd, sizeof(cmd), "dd if=/dev/mtdblock%d of=/lib/firmware/e2p bs=%d skip=0 count=1", mtd_part, 131072);
 #endif
 		system(cmd);
-		system("ln -sf /rom/etc/wireless/mediatek /etc/wireless/");
 	}else
 		printf("init_devs: can't find Factory MTD partition\n");
+#endif
+	system("ln -sf /rom/etc/wireless/mediatek /etc/wireless/");
 #if defined(RTCONFIG_MT798X)
 	if(mt798x_unlock_txpower)
 		mt798x_unlock_txpower();

@@ -48,6 +48,11 @@
 #define RTL_LPADV_2500FULL			BIT(5)
 
 #define RTL_GENERIC_PHYID			0x001cc800
+#define RTL_8221B_VB_CG			0x001cc849
+
+#define RTL8221B_VND2_INER			0xa4d2
+#define RTL8221B_VND2_INER_LINK_STATUS		BIT(4)
+#define RTL8221B_VND2_INSR			0xa4d4
 
 MODULE_DESCRIPTION("Realtek PHY driver");
 MODULE_AUTHOR("Johnson Leung");
@@ -88,6 +93,39 @@ static int rtl8211f_ack_interrupt(struct phy_device *phydev)
 	err = phy_read_paged(phydev, 0xa43, RTL8211F_INSR);
 
 	return (err < 0) ? err : 0;
+}
+
+static int rtl8221b_ack_interrupt(struct phy_device *phydev)
+{
+	int err;
+
+	err = phy_read_mmd(phydev, MDIO_MMD_VEND2, RTL8221B_VND2_INSR);
+
+	return (err < 0) ? err : 0;
+}
+
+static int rtl8221b_config_intr(struct phy_device *phydev)
+{
+	int err;
+
+	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
+		err = rtl8221b_ack_interrupt(phydev);
+		if (err)
+			return err;
+
+		err = phy_write_mmd(phydev, MDIO_MMD_VEND2,
+				    RTL8221B_VND2_INER,
+				    RTL8221B_VND2_INER_LINK_STATUS);
+	} else {
+		err = phy_write_mmd(phydev, MDIO_MMD_VEND2,
+				    RTL8221B_VND2_INER, 0);
+		if (err)
+			return err;
+
+		err = rtl8221b_ack_interrupt(phydev);
+	}
+
+	return err;
 }
 
 static int rtl8201_config_intr(struct phy_device *phydev)
@@ -443,6 +481,40 @@ static int rtl8125_match_phy_device(struct phy_device *phydev)
 	       rtlgen_supports_2_5gbps(phydev);
 }
 
+
+static int rtl8221b_vb_cg_match_phy_device(struct phy_device *phydev)
+{
+	if (phydev->is_c45)
+		return phydev->c45_ids.device_ids[MDIO_MMD_PMAPMD] == RTL_8221B_VB_CG;
+
+	return phydev->phy_id == RTL_8221B_VB_CG;
+}
+
+
+static int rtl8221b_get_features(struct phy_device *phydev)
+{
+	if (phydev->is_c45)
+		return genphy_c45_pma_read_abilities(phydev);
+
+	return rtl8125_get_features(phydev);
+}
+
+static int rtl8221b_config_aneg(struct phy_device *phydev)
+{
+	if (phydev->is_c45)
+		return genphy_c45_config_aneg(phydev);
+
+	return rtl8125_config_aneg(phydev);
+}
+
+static int rtl8221b_read_status(struct phy_device *phydev)
+{
+	if (phydev->is_c45)
+		return genphy_c45_read_status(phydev);
+
+	return rtl8125_read_status(phydev);
+}
+
 static struct phy_driver realtek_drvs[] = {
 	{
 		PHY_ID_MATCH_EXACT(0x00008201),
@@ -530,6 +602,19 @@ static struct phy_driver realtek_drvs[] = {
 		.write_page	= rtl821x_write_page,
 		.read_mmd	= rtlgen_read_mmd,
 		.write_mmd	= rtlgen_write_mmd,
+	}, {
+		.name		= "RTL8221B-VB-CG 2.5Gbps PHY",
+		.match_phy_device = rtl8221b_vb_cg_match_phy_device,
+		.soft_reset	= genphy_soft_reset,
+		.get_features	= rtl8221b_get_features,
+		.config_aneg	= rtl8221b_config_aneg,
+		.read_status	= rtl8221b_read_status,
+		.ack_interrupt	= rtl8221b_ack_interrupt,
+		.config_intr	= rtl8221b_config_intr,
+		.suspend	= genphy_suspend,
+		.resume		= genphy_resume,
+		.read_page	= rtl821x_read_page,
+		.write_page	= rtl821x_write_page,
 	}, {
 		.name		= "RTL8125 2.5Gbps internal",
 		.match_phy_device = rtl8125_match_phy_device,

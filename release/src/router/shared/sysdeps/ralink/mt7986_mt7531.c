@@ -40,7 +40,8 @@
  && !defined(RTAX59U) \
  && !defined(CHEETAH) \
  && !defined(RMAX6000) \
- && !defined(SWRT360T7)
+ && !defined(SWRT360T7) \
+ && !defined(S20PAX6000)
 #define REDUCE_DUPLICATED_MDIO_QUERY
 #endif
 
@@ -52,7 +53,7 @@
 #define REG_SSC_PHY_IAC		0x701c
 
 #define ETH_DEVNAME	"eth0"
-#if defined(PANTHERA)
+#if defined(PANTHERA) || defined(S20PAX6000)
 #define NR_WANLAN_PORT	7
 #elif defined(TUFAX4200) || defined(TUFAX6000)
 #define NR_WANLAN_PORT	6
@@ -76,7 +77,7 @@ enum {
 };
 
 enum {
-#if defined(PANTHERA)
+#if defined(PANTHERA) || defined(S20PAX6000)
 	LAN6_PORT=0,
 	LAN5_PORT,
 	LAN4_PORT,
@@ -127,8 +128,8 @@ static const char *upstream_iptv_ifaces[16] = {
  * lan_wan_partition[switch_stb_x][1] is virtual port1, etc.
  */
 static const int lan_wan_partition[9][NR_WANLAN_PORT] = {
-#if defined(PANTHERA)
-	/* L1, L2, L3, L4, L5, L6, W1G */
+#if defined(PANTHERA) || defined(S20PAX6000)
+	/* L1, L2, L3, L4, L5, L6, W2.5G */
 	{1,1,1,1,1,1,0}, // Normal
 	{0,1,1,1,1,1,0}, // IPTV STB port = LAN1
 	{1,0,1,1,1,1,0}, // IPTV STB port = LAN2
@@ -197,10 +198,10 @@ static const int lan_wan_partition[9][NR_WANLAN_PORT] = {
  */
 static const int bsport_to_vport[MAX_WANLAN_PORT] = {
 	WAN_PORT, LAN1_PORT, LAN2_PORT, LAN3_PORT
-#if !defined(RTAX59U) && !defined(RTAX52) && !defined(RMAX6000) && !defined(SWRT360T7)
+#if !defined(RTAX59U) && !defined(RTAX52) && !defined(RMAX6000) && !defined(SWRT360T7) && !defined(S20PAX6000)
 	, LAN4_PORT
 #endif
-#if defined(PANTHERA)
+#if defined(PANTHERA) || defined(S20PAX6000)
 	, LAN5_PORT, LAN6_PORT
 #elif defined(TUFAX4200) || defined(TUFAX6000)
 	, LAN5_PORT
@@ -221,7 +222,9 @@ static const int bsport_to_vport[MAX_WANLAN_PORT] = {
  *********************************************************
  */
 static const int vport_to_phy_addr[MAX_WANLAN_PORT] = {
-#if defined(PANTHERA)
+#if defined(S20PAX6000)
+	105, 0, 1, 2, 3, 4, 107				/* LAN6~1, WAN */
+#elif defined(PANTHERA)
 	4, 3, 2, 1, 0, 105, 106				/* LAN6~1, WAN */
 #elif defined(TUFAX4200)
 	105, 4, 3, 2, 1, 106				/* LAN5~1, WAN */
@@ -256,7 +259,9 @@ static const int vport_to_phy_addr[MAX_WANLAN_PORT] = {
  * array element:	Interface name of specific virtual port.
  */
 static const char *vport_to_iface[MAX_WANLAN_PORT] = {
-#if defined(PANTHERA)
+#if defined(S20PAX6000)
+	"lan6", "lan5", "lan4", "lan3", "lan2", "lan1",		/* LAN6~1 */
+#elif defined(PANTHERA)
 	"lan4", "lan3", "lan2", "lan1", "lan0", "lan5",		/* LAN6~1 */
 #elif defined(TUFAX4200) || defined(TUFAX6000)
 	"lan5", "lan4", "lan3", "lan2", "lan1",			/* LAN5~1 */
@@ -305,7 +310,7 @@ static const unsigned int stb_to_mask[7] = { 0,
 
 /* ALL WAN/LAN virtual port bit-mask */
 static unsigned int wanlanports_mask =
-#if defined(PANTHERA)
+#if defined(PANTHERA) || defined(S20PAX6000)
 					(1U << WAN_PORT) | (1U << LAN1_PORT) | (1U << LAN2_PORT) | (1U << LAN3_PORT) | (1U << LAN4_PORT) | (1U << LAN5_PORT) | (1U << LAN6_PORT);
 #elif defined(TUFAX4200) || defined(TUFAX6000)
 					(1U << WAN_PORT) | (1U << LAN1_PORT) | (1U << LAN2_PORT) | (1U << LAN3_PORT) | (1U << LAN4_PORT) | (1U << LAN5_PORT);
@@ -363,10 +368,10 @@ const int lan_id_to_vport[NR_WANLAN_PORT] = {
 #if !defined(PRTAX57_GO)
 	LAN2_PORT,
 	LAN3_PORT,
-#if !defined(RTAX59U) && !defined(RTAX52) && !defined(RMAX6000) && !defined(SWRT360T7)
+#if !defined(RTAX59U) && !defined(RTAX52) && !defined(RMAX6000) && !defined(SWRT360T7) && !defined(S20PAX6000)
 	LAN4_PORT,
 #endif
-#if defined(PANTHERA)
+#if defined(PANTHERA) || defined(S20PAX6000)
 	LAN5_PORT,
 	LAN6_PORT,
 #elif defined(TUFAX4200) || defined(TUFAX6000)
@@ -1900,6 +1905,15 @@ void mt798x_get_phy_port_mapping(phy_port_mapping *port_mapping)
 		.port[3] = { .phy_port_id = LAN3_PORT, .ext_port_id = -1, .label_name = "L3", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
 		.port[4] = { .phy_port_id = LAN4_PORT, .ext_port_id = -1, .label_name = "L4", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
 		.port[5] = { .phy_port_id = LAN5_PORT, .ext_port_id = -1, .label_name = "L5", .cap = PHY_PORT_CAP_LAN, .max_rate = 2500, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+#elif defined(S20PAX6000)
+		.count = NR_WANLAN_PORT,
+		.port[0] = { .phy_port_id = WAN_PORT,  .ext_port_id = -1, .label_name = "W0", .cap = PHY_PORT_CAP_WAN, .max_rate = 2500, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[1] = { .phy_port_id = LAN1_PORT, .ext_port_id = -1, .label_name = "L1", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[2] = { .phy_port_id = LAN2_PORT, .ext_port_id = -1, .label_name = "L2", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[3] = { .phy_port_id = LAN3_PORT, .ext_port_id = -1, .label_name = "L3", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[4] = { .phy_port_id = LAN4_PORT, .ext_port_id = -1, .label_name = "L4", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[5] = { .phy_port_id = LAN5_PORT, .ext_port_id = -1, .label_name = "L5", .cap = PHY_PORT_CAP_LAN, .max_rate = 1000, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
+		.port[6] = { .phy_port_id = LAN6_PORT, .ext_port_id = -1, .label_name = "L6", .cap = PHY_PORT_CAP_LAN, .max_rate = 2500, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },
 #elif defined(PANTHERA)
 		.count = NR_WANLAN_PORT,
 		.port[0] = { .phy_port_id = WAN_PORT,  .ext_port_id = -1, .label_name = "W0", .cap = PHY_PORT_CAP_WAN, .max_rate = 2500, .ifname = NULL, .flag = 0, .seq_no = -1, .ui_display = NULL },

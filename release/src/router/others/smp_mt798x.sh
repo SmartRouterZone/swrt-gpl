@@ -466,7 +466,7 @@ setup_model()
 	num_of_wifi=$(get_wifi_num)
 
 	case $board in
-	RM-AX6000|TUF-AX6000|TUF-AX4200|RT-AX59U)
+	RM-AX6000|S20P-AX6000|TUF-AX6000|TUF-AX4200|RT-AX59U)
 		MT7986_whnat $num_of_wifi
 		;;
 	*7981*)

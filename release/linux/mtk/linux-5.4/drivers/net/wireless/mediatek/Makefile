@@ -40,23 +40,30 @@ endif
 ifneq ($(wildcard drivers/net/wireless/mediatek/mt798x/7.6.7.0/mt_wifi/chips/mt7986.c),)
 obj-$(CONFIG_MODEL_RMAX6000) += mt798x/7.6.7.0/mt_wifi_ap/
 obj-$(CONFIG_MODEL_RMAX6000) += mt798x/7.6.7.0/warp_driver/warp/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt798x/7.6.7.0/mt_wifi_ap/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt798x/7.6.7.0/warp_driver/warp/
 obj-$(CONFIG_MODEL_SWRT360T7) += mt798x/7.6.7.0/mt_wifi_ap/
 obj-$(CONFIG_MODEL_SWRT360T7) += mt798x/7.6.7.0/warp_driver/warp/
 else ifneq ($(wildcard drivers/net/wireless/mediatek/mt7986_prebuild/mt_wifi_mt7986.o),)
 obj-$(CONFIG_MODEL_RMAX6000) += mt7986_prebuild/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt7986_prebuild/
 else ifneq ($(wildcard drivers/net/wireless/mediatek/mt7981_prebuild/mt_wifi_mt7981.o),)
 obj-$(CONFIG_MODEL_SWRT360T7) += mt7981_prebuild/
 else
 obj-$(CONFIG_MODEL_RMAX6000) += mt7986/mt_wifi_ap/
 obj-$(CONFIG_MODEL_RMAX6000) += mt7986/warp_driver/warp/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt7986/mt_wifi_ap/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt7986/warp_driver/warp/
 obj-$(CONFIG_MODEL_SWRT360T7) += mt7986/mt_wifi_ap/
 obj-$(CONFIG_MODEL_SWRT360T7) += mt7986/warp_driver/warp/
 endif
 ifneq ($(wildcard drivers/net/wireless/mediatek/conninfra/Makefile),)
 obj-$(CONFIG_MODEL_RMAX6000) += conninfra/
+obj-$(CONFIG_MODEL_S20PAX6000) += conninfra/
 obj-$(CONFIG_MODEL_SWRT360T7) += conninfra/
 else
 obj-$(CONFIG_MODEL_RMAX6000) += mt7986_prebuild/
+obj-$(CONFIG_MODEL_S20PAX6000) += mt7986_prebuild/
 obj-$(CONFIG_MODEL_SWRT360T7) += mt7981_prebuild/
 endif
 
