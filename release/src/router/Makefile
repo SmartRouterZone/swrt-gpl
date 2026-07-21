@@ -4151,7 +4151,7 @@ else
 	ln -sf ../../../../../src-lantiq/grx500/iwlwav-hostap/source/src/common/vendor_cmds_copy.h shared/sysdeps/lantiq/vendor_cmds_copy.h
 endif
 endif
-	if [ ! -f $@/stamp-h1 ];then \
+	if [ ! -f $@/stamp-h1 ] || [ ! -f $@/libshared.so ] || [ ! -f $@/libshared.a ];then \
 		$(MAKE) -C shared && touch $@/stamp-h1 ; \
 	fi
 

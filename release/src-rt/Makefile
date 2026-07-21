@@ -6960,6 +6960,7 @@ define save_src_config
 		else \
 			NEW_BUILD_NAME=$(shell echo $(1) | tr a-z A-Z) ; \
 		fi ; \
+		NEW_BUILD_NAME=`echo $${NEW_BUILD_NAME} | sed 's/^SWRT-//'` ; \
 		echo "CONFIGURED MODEL: $(BUILD_NAME)" ; \
 		echo "SPECIFIED  MODEL: $${NEW_BUILD_NAME}" ; \
 		echo "DEFINED MODEL:    $(MODEL)" ; \

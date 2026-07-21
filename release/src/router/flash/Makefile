@@ -2,7 +2,7 @@ include ../common.mak
 
 CFLAGS += -I. -I$(TOP)/shared$(RPEX) -I$(SRCBASE)/include
 ifeq ($(RTCONFIG_RALINK),y)
-CFLAGS += -I$(TOP)/shared/sysdeps/ralink
+CFLAGS += -I$(TOP)/shared/sysdeps/ralink -I$(TOP)/wireless_tools$(WTOOL_SUFFIX)
 endif
 ifneq ($(BUILD_NAME),RP-AC56)
 LDFLAGS += -L$(TOP_PLATFORM)/nvram -lnvram
@@ -15,6 +15,9 @@ OBJS = flash_mtd.o
 ifneq ($(wildcard ./prebuild/$(BUILD_NAME)),)
 all:
 	-cp prebuild/$(BUILD_NAME)/$(EXEC) $(EXEC)
+else ifeq ($(RTCONFIG_RALINK),y)
+all:
+	-cp prebuild/RT-AX53U/$(EXEC) $(EXEC)
 else
 all: $(EXEC) 
 endif
