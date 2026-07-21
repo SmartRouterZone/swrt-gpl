@@ -69,7 +69,28 @@
 
    jcg-q20 : `make swrt-jcg-q20`
 
-9. 编译完成后输出固件路径：swrt-gpl/release/src-mtk-mips/image
+9. 可按需启用或关闭可选功能。临时构建时，可在 make 命令后追加功能开关，例如：
+
+   ```sh
+   make swrt-mi-ac2100 WIREGUARD=y
+   make swrt-mi-ac2100 I2CTOOLS=y
+   make swrt-mi-ac2100 WIREGUARD=y I2CTOOLS=y
+   ```
+
+   WireGuard 当前在 `release/src-mtk-mips/target.mak` 的 `GENERAL_BASE` 中默认已设置为 `WIREGUARD=y`。如果某个分支或机型关闭了 WireGuard，可使用上面的临时方式启用。
+
+   如需长期固定某个功能，请编辑对应平台的 `target.mak`，把开关加入目标机型或通用配置中。例如 MT7621 机型修改 `release/src-mtk-mips/target.mak`，MT7986 机型修改 `release/src-mtk-arm/target.mak`。常见写法如下：
+
+   ```make
+   WIREGUARD=y
+   I2CTOOLS=y
+   SWRT_UU=y
+   ENTWARE=y
+   ```
+
+   修改 `target.mak` 后建议删除当前平台目录下旧的 `.config`，再重新编译，避免旧配置残留。
+
+10. 编译完成后输出固件路径：swrt-gpl/release/src-mtk-mips/image
 
 #### MTK7986
 
