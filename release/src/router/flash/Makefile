@@ -16,6 +16,9 @@ else
 all: $(EXEC) 
 endif
 
+flash_mtd.o: ../shared/flash_mtd.c
+	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
+
 $(EXEC): $(OBJS)
 	echo "Build_Name:"$(BUILD_NAME) 
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
