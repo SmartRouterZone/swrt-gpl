@@ -19,7 +19,7 @@ clean:
 	find $(PKG_BUILD_DIR) -type f -name "*.o" -o -name "stage" | xargs rm -f
 
 stage:
-	install -m 644 $(PKG_BUILD_DIR)/{dpp_api,dpputils}.h $(STAGEDIR)/usr/include
+	install -m 644 $(PKG_BUILD_DIR)/dpp_api.h $(PKG_BUILD_DIR)/dpputils.h $(STAGEDIR)/usr/include
 	cp -rf $(PKG_BUILD_DIR)/libdpp.so $(STAGEDIR)/usr/lib
 
 .PHONY: stage all install clean

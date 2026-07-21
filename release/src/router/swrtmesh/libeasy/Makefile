@@ -20,7 +20,7 @@ clean:
 
 stage:
 	mkdir -p $(STAGEDIR)/usr/include/easy
-	install -m 644 $(PKG_BUILD_DIR)/{easy,event,utils,bufutil,cryptutil,ecc_cryptutil,if_utils,debug,hlist}.h $(STAGEDIR)/usr/include/easy
+	install -m 644 $(PKG_BUILD_DIR)/easy.h $(PKG_BUILD_DIR)/event.h $(PKG_BUILD_DIR)/utils.h $(PKG_BUILD_DIR)/bufutil.h $(PKG_BUILD_DIR)/cryptutil.h $(PKG_BUILD_DIR)/ecc_cryptutil.h $(PKG_BUILD_DIR)/if_utils.h $(PKG_BUILD_DIR)/debug.h $(PKG_BUILD_DIR)/hlist.h $(STAGEDIR)/usr/include/easy
 	cp -rf $(PKG_BUILD_DIR)/libeasy.so* $(STAGEDIR)/usr/lib
 
 .PHONY: stage all install clean

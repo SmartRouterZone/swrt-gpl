@@ -60,8 +60,8 @@ endif
 stage:
 	[ -d $(STAGEDIR)/usr/lib/ieee1905 ] || install -d $(STAGEDIR)/usr/lib/ieee1905
 ifneq ($(wildcard source/src/Makefile),)
-	install -m 644 $(PKG_BUILD_DIR)/{cmdu,cmdu_ackq,1905_tlvs,i1905_wsc,timer_impl,i1905_extension}.h $(STAGEDIR)/usr/include
-	install -m 644 $(PKG_BUILD_DIR)/extensions/map/{easymesh,map_module,cntlrsync}.h $(STAGEDIR)/usr/include
+	install -m 644 $(PKG_BUILD_DIR)/cmdu.h $(PKG_BUILD_DIR)/cmdu_ackq.h $(PKG_BUILD_DIR)/1905_tlvs.h $(PKG_BUILD_DIR)/i1905_wsc.h $(PKG_BUILD_DIR)/timer_impl.h $(PKG_BUILD_DIR)/i1905_extension.h $(STAGEDIR)/usr/include
+	install -m 644 $(PKG_BUILD_DIR)/extensions/map/easymesh.h $(PKG_BUILD_DIR)/extensions/map/map_module.h $(PKG_BUILD_DIR)/extensions/map/cntlrsync.h $(STAGEDIR)/usr/include
 	install -m 755 $(PKG_BUILD_DIR)/libieee1905.so $(STAGEDIR)/usr/lib/
 	install -m 755 $(PKG_BUILD_DIR)/libmidgen.so $(STAGEDIR)/usr/lib/
 	install -m 755 $(PKG_BUILD_DIR)/extensions/map/libmaputil.so $(STAGEDIR)/usr/lib/

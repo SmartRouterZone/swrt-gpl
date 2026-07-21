@@ -361,7 +361,7 @@ define platformKernelConfig
 		echo "CONFIG_MODEL_S20PAX6000=y" >>$(1); \
 		sed -i "/CONFIG_CMDLINE_OVERRIDE/d" $(1); \
 		echo "CONFIG_CMDLINE_OVERRIDE=y" >>$(1); \
-		sed -i "/CONFIG_MMC/d" $(1); \
+		sed -i "/^CONFIG_MMC=/d; /^# CONFIG_MMC is not set/d" $(1); \
 		echo "CONFIG_MMC=y" >>$(1); \
 		sed -i "/CONFIG_MMC_MTK/d" $(1); \
 		echo "CONFIG_MMC_MTK=y" >>$(1); \

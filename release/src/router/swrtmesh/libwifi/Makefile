@@ -89,7 +89,7 @@ clean:
 	find $(PKG_BUILD_DIR) -type f -name "*.o" -o -name "stage" | xargs rm -f
 
 stage:
-	install -m 644 $(PKG_BUILD_DIR)/{wifidefs,wifiutils,wifiops,wifi}.h $(STAGEDIR)/usr/include
+	install -m 644 $(PKG_BUILD_DIR)/wifidefs.h $(PKG_BUILD_DIR)/wifiutils.h $(PKG_BUILD_DIR)/wifiops.h $(PKG_BUILD_DIR)/wifi.h $(STAGEDIR)/usr/include
 	cp -rf $(PKG_BUILD_DIR)/libwifiutils.so $(STAGEDIR)/usr/lib
 	cp -rf $(PKG_BUILD_DIR)/libwifi-7.so* $(STAGEDIR)/usr/lib
 
