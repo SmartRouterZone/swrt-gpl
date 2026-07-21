@@ -1,6 +1,9 @@
 include ../common.mak
 
 CFLAGS += -I. -I$(TOP)/shared$(RPEX) -I$(SRCBASE)/include
+ifeq ($(RTCONFIG_RALINK),y)
+CFLAGS += -I$(TOP)/shared/sysdeps/ralink
+endif
 ifneq ($(BUILD_NAME),RP-AC56)
 LDFLAGS += -L$(TOP_PLATFORM)/nvram -lnvram
 endif
